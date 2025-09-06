@@ -1,0 +1,226 @@
+1111.	Sure — one of the most impactful changes I led was during my time at NSP Systems, a U.S.-based IT services and consulting company that specializes in business-technology integration, staffing, data science, and cloud-based solutions across industries like insurance, healthcare, finance, and retail.nspsystems.net+1
+When I joined NSP Systems, leadership frequently struggled to get consistent insights across departments. Each team managed their data independently:
+•	Marketing and Sales tracked performance in Google Sheets and manually maintained campaign attribution data
+•	Finance relied on a legacy on prem ERP system with nightly export files
+•	Operations monitored ticketing and SLA metrics through platforms like ServiceNow
+These siloed systems resulted in conflicting KPIs and made executive-level decision-making slow and error-prone.
+________________________________________
+Situation
+Executives were wasting too much time reconciling data: campaign ROI, pipeline figures, and SLA performance often didn’t align—for example, marketing would report revenue numbers that didn’t match finance’s posted billing data.
+Task
+I proposed implementing a cloud-based centralized reporting platform to unify these disparate data sources into a single source of truth, streamlining visibility and reducing manual work.
+________________________________________
+Action
+1.	Stakeholder Discovery & Prioritization
+I held one-on-one sessions with team leaders and data analysts from Marketing, Finance, and Operations to learn:
+o	Which metrics they relied on most
+o	What reporting pain points they experienced
+o	Which data sources could realistically be integrated early
+It turned out Marketing and Operations data were cleaner and more accessible, while Finance data was more complex and would require phased work.
+2.	Phased Execution Strategy
+We opted to launch dashboards for the Marketing and Operations teams first, focusing on high-impact KPIs like campaign ROI, lead conversion rates, and SLA turnaround times. Integration with Finance followed in phase two after we improved their data schema and refresh processes.
+3.	Technical Solution Architecture
+Collaborated with cloud and data engineering to build:
+o	Amazon S3 as a centralized data lake
+o	AWS Glue for ETL transformation
+o	Amazon Athena for querying and ad hoc reporting
+o	Amazon QuickSight for customizable dashboards with role-based access
+To keep the project focused, I introduced a “Data Readiness Checklist”—a checklist to score datasets by data freshness, structure quality, and business criticality. This standardized how we prioritized tasks across sprints.
+4.	Observability & Usage Metrics
+I partnered with data engineers to implement robust monitoring:
+o	CloudWatch metrics tracked ETL job success/failure rates, error codes, and pipeline lag
+o	QuickSight usage logs and Athena query stats captured dashboard sessions, query latency, and peak usage times
+o	Alerts were configured for API throttling, high error rates, or downstream source failures
+o	A data quality SLA dashboard reported refresh success rate, completeness thresholds, and latency metrics (<2 hours target)
+________________________________________
+Result
+•	Adoption & Efficiency
+Over the first month, more than 7+ active users across departments began relying on the dashboards.
+Manual reporting overhead decreased, significantly freeing up analyst time.
+•	Performance & Stability
+Pipeline uptime remained at 98%+, and we preemptively detected 3 upstream source failures, avoiding reporting inaccuracies.
+•	Scalability
+When usage peaked on Monday mornings (2× normal load), our query response times stayed under 5 seconds thanks to Athena optimizations.
+•	Business Impact
+Leadership noted a 30% improvement in decision-making turnaround, citing faster access to consistent, cross-functional data.
+•	Reusable Framework
+The “Data Readiness Checklist” was later adopted by two additional teams at NSP Systems for their own analytics programs.
+________________________________________
+Reflection
+This project reinforced that effective change isn’t just about building infrastructure—it’s about carefully sequencing efforts, engaging stakeholders from the beginning, and embedding observability into delivery. Real-time metrics transformed dashboards from “nice to have” into trusted decision tools.
+It remains one of my favorite examples of cross-functional collaboration and delivering measurable value in a complex, multi-department environment—exactly the kind of transformation I thrive in.
+
+       2222. During my internship at Fresenius Medical Care North America, I was assigned to support a project under their Clinical Training division. The big question leadership had was:
+"How can we make sure patients undergoing dialysis actually understand their care instructions?"
+At the time, patient education was delivered mostly through printed PDFs — the same handouts for everyone. After a few shadowing sessions with nurses and trainers, I realized they were worried.
+They couldn’t tell if patients were truly absorbing the information, especially those who were new to dialysis or didn’t speak English fluently. There was no feedback loop. And many patients just nodded and left — which was risky.
+That’s when I was asked to come up with a scalable solution that could make training more personalized and interactive.
+Now, I’ll be honest — this was a completely new territory for me. I had some experience with GenAI and cloud workflows, but I didn’t have deep knowledge in patient education or the clinical approval process. So I knew early on that I couldn’t and shouldn’t solve this in isolation.
+________________________________________
+T – Task (1.5–2 min)
+My goal was to design a proof of concept that could:
+•	Help nurses measure how well patients understood their training
+•	Offer adaptive, interactive content tailored to each patient’s stage
+•	Be compliant with HIPAA and safe to use in our AWS environment
+But here’s the thing — I had to move quickly, and I didn’t want to make assumptions. I needed input from two directions:
+1.	Clinical guidance — to validate if interactive training would even be effective
+2.	Technical feasibility — to see if we could build it securely using AWS + GenAI tools
+So I started by reaching out to people who had the expertise I didn’t.
+________________________________________
+A – Action (4 min)
+First, I reached out to a Subject Matter Expert (SME) — a nurse educator with over a decade of experience.
+I didn’t just ask, “Would GenAI work here?” Instead, I scheduled a 20-minute call and said:
+“I’m exploring a new approach to reinforce patient training — something interactive, that adapts to each patient’s understanding. Could I walk you through my thinking and get your perspective?”
+On that call, I showed her a basic user flow I’d mocked up, and asked what she thought about using quizzes that evolve based on patient answers. She lit up. She said this could help flag gaps in real time and give nurses more confidence that patients were truly ready.
+Second, I spoke with a data engineer who worked on our AWS stack. My ask was specific:
+“Here’s the workflow I’m thinking about: generating personalized quizzes using GenAI, storing results securely, and sharing summaries with care teams. Can we do this in a HIPAA-safe way within our current stack?”
+He reviewed it with me and helped adjust the architecture — we settled on:
+•	Amazon Bedrock for GenAI quiz generation
+•	AWS Lambda for backend orchestration
+•	S3 and DynamoDB for secure data handling
+With their support, I built out the PoC (Proof of Concept) over the next two weeks. Here’s how it worked:
+•	Each patient was given a short, AI-generated quiz based on their treatment stage
+•	Questions adapted depending on the answers
+•	Summaries were sent to nurses, showing which concepts the patient mastered — and where they needed help
+To validate it, I ran a 3-week pilot with 5 patients and 2 nurses at a single dialysis unit. I handled the rollout myself — training the nurses on how to use the tool and gathering feedback after each use.
+________________________________________
+R – Result (1.5 min)
+The feedback was really encouraging:
+•	100% quiz completion rate from patients
+•	Quiz accuracy improved from ~60% to over 85% by the end of the week
+•	Nurses reported they spent 30% less time re-explaining the basics
+•	And importantly, patients said they felt more confident and engaged
+I tracked all this through a small QuickSight dashboard I built — showing usage, accuracy trends, and completion rates — and presented it in a debrief with the clinical and analytics leads.
+The success of the pilot led to the project being expanded to two more centers. The core architecture and delivery approach I designed was used as the base for the broader rollout.
+3333. This happened during my capstone project with Fresenius Medical Care North America, where we were tasked with building a Conversational AI system for their internal HR support function.
+The project was initiated because their HR team was spending a disproportionate amount of time answering repetitive questions — things like “What are my leave benefits?”, or “Where can I get the direct deposit form?” Even with a well-documented portal, employees would often still open tickets, delaying responses and burdening HR staff.
+My team and I  were brought in to explore how LLMs and GenAI could help streamline these interactions — essentially building an AI assistant to handle FAQs, retrieve policy documents, and guide employees to the right forms and resources.
+From January to May, we worked closely with Fresenius’s Clinical and HR stakeholders to understand the process flow and designed a robust architecture on AWS:
+•	Amazon Lex as the chatbot interface
+•	AWS Lambda for orchestration
+•	Bedrock (with Meta LLaMA 3-8B) for LLM-powered reasoning
+•	S3 for document storage
+•	And even scoped future versions integrated with Workday
+We were fully aligned on the roadmap. But things changed dramatically around July, right before we began development.
+________________________________________
+TASK (1 min):
+Suddenly, due to unresolved NDA and procurement delays between Fresenius and our university, we lost access to both the AWS environment and all of Fresenius’s internal HR data — which we had based our entire design on.
+We had less than 3 months left. As the technical lead, my task was to redesign the solution from scratch, using only free or open-source tools and public data, while keeping core functionality intact — so the chatbot could still showcase multi-turn conversation, document retrieval, and HR form navigation.
+I also had to ensure we communicated transparently with all stakeholders — from our client-side sponsor to our professor — and didn’t lose sight of why the project existed in the first place.
+________________________________________
+ACTION (6 min):
+The first thing I did was pause and reframe the problem. Even if we couldn't use AWS or real data, we could still build a demonstrable prototype that mirrors how the final system would behave.
+So, I led a technical redesign in 3 stages:
+🛠️ Stage 1: Architecture Pivot
+I replaced AWS components with cost-free, open tools:
+•	AWS Lambda → Flask as the backend engine
+•	Amazon S3 → Local file storage
+•	Bedrock + LLaMA → Gemini Pro via Google Cloud API
+•	Document search → FAISS for vector similarity search
+This meant reworking the entire embedding pipeline and backend logic.
+We restructured the application to work locally, while still supporting functionality. 
+To make the system feel real, I set up a meeting with my professor and HR Dept of the University to source publicly available HR documents from the University of Maryland. I 
+________________________________________
+💬 Stage 2: Stakeholder Alignment & Communication
+As the technical lead, I took ownership of re-establishing stakeholder expectations.
+First, I scheduled a working session with our professor and the Fresenius sponsor. I walked them through:
+•	What we originally scoped
+•	What constraints we were facing
+•	My revised design plan, and how it still demonstrated real-world feasibility
+we’re building a proof of concept under new constraints.”
+They appreciated the transparency. Our professor agreed to shift evaluation metrics toward functionality and resilience under constraint, and the client accepted that the system, even if built on public data, still modeled what a future version on their infrastructure could be.
+________________________________________
+🧑‍🤝‍🧑 Stage 3: Development & Delivery
+Once aligned, I broke the team into sub-units and managed the sprint structure:
+•	I took on backend integration: Then, I built a full retrieval and classification pipeline using FAISS + prompt engineering using Lang chain tutorials.
+•	One teammate worked on the React frontend and built a smooth chat UI with buttons for form navigation.
+•	Another handled Snowflake simulation — we replicated form categories in a database and exposed them via API.
+•	And another managed QA and prompt refinement — especially edge cases and invalid queries.
+Throughout, I ran stand-ups twice a week, kept a shared roadmap updated, and facilitated async check-ins on Slack.
+I also documented every design decision in Confluence-style format — to make handoff easy, especially in case the client wanted to resume work post-NDA.
+A few technical wins during this phase:
+•	We optimized the Gemini prompts to reduce hallucinations by validating queries against known intents.
+•	Integrated a “source” feature that linked responses to specific policy documents.
+•	Implemented fallback handling for unsupported queries (“I do not have access to this information”).
+________________________________________
+RESULTS + REFLECTION (1 min):
+Despite starting from scratch, we delivered a fully working MVP by the deadline.
+✅ 100% functional chatbot interface
+✅ Real-time document retrieval using vector search
+✅ Multi-turn conversation capability
+✅ Live form navigation and category filtering
+✅ 90%+ accuracy on simulated HR queries
+Our professor called it one of the most resilient and well-architected pivots he’d seen. And Fresenius said the prototype gave them a strong foundation to bring the idea back once NDA issues were resolved.
+Reflecting back — the project wasn’t just about building with GenAI. It was about:
+•	Managing risk under constraint
+•	Leading with clarity
+•	Delivering value when the original plan falls apart
+And honestly, it reinforced one of my biggest beliefs as a program manager: Constraints are not blockers — they’re creative filters. You can always build something meaningful when you stay grounded in the problem you’re solving.
+4444. In my role as a Graduate Assistant in the MBA department at the University of Maryland’s Robert H. Smith School of Business, I was assigned to help launch the Smith Digital First Network (SDFN) — a new initiative aimed at connecting companies with our graduate students to co-create digital transformation strategies. The program’s premise was that companies would present real business challenges, students would propose data-driven and digital-first solutions, and faculty would provide guidance and validation.
+The challenge was that this was a first-of-its-kind program for the department, and the scope was broad — it covered corporate outreach, student team formation, event planning, and even a visual platform to display ideas. The timeline was six months from planning to pilot launch, and we had a limited budget allocated from the department’s partnership fund. On top of that, I had no prior experience in budget planning for academic-industry programs, so I knew I would have to quickly bridge that knowledge gap while delivering results on time.
+________________________________________
+Task (≈2 min)
+I was tasked with three key objectives:
+1.	Program Planning & Coordination – Build a structured project plan for onboarding companies, forming student teams, scheduling sessions, and preparing deliverables.
+2.	Scope & Risk Management – Prevent scope creep, identify risks early, and ensure the program stayed aligned with its core mission.
+3.	Budget Oversight – Track and allocate the program’s budget effectively — including event costs, design tools, and marketing materials — even though this was a new domain for me.
+Beyond the operational side, I also needed to contribute to product design — specifically, building a Figma-based prototype to showcase student solutions in a professional, easy-to-digest format for corporate partners.
+________________________________________
+Action (≈6 min)
+1. Stakeholder Engagement & Scheduling
+•	I mapped out all key stakeholders:
+o	Faculty Leads – Program Director and faculty advisors from Information Systems and Marketing.
+o	Corporate Outreach Team – Responsible for engaging company partners.
+o	Graduate Student Teams – MBA and MS in Information Systems students who would execute the projects.
+o	Administrative Support – Events and communications staff.
+•	I set up weekly 30-minute stand-ups every Monday with the faculty lead, corporate outreach coordinator, and event planner to review progress, blockers, and new opportunities.
+•	For corporate partners, I coordinated bi-weekly check-ins via Zoom to confirm project briefs, clarify requirements, and set realistic expectations for student involvement.
+•	I maintained communication through weekly email updates to stakeholders summarizing milestones, risks, and upcoming deadlines — this ensured alignment and eliminated surprises.
+________________________________________
+2. Budget Learning & Management
+•	Since I had no prior budget management experience, I asked the MBA department’s finance liaison to walk me through the budget structure — learning terms like encumbrances, expense codes, and vendor approvals.
+•	I also partnered with an MBA student specializing in finance and a second-year MS student who had worked on department-funded projects before. Together, we brainstormed cost-saving measures and built a basic Excel tracker to log expenses against budget categories.
+•	We identified three major cost drivers — conference registration subsidies, design tools (like Figma Pro), and event catering — and set caps for each.
+•	Using these controls, we stayed 8% under the allocated budget, allowing us to reallocate surplus funds to marketing materials for better corporate engagement.
+________________________________________
+3. Scope & Risk Control
+•	Early in the program, several stakeholders suggested adding more events and a second pilot phase. I introduced a change control process, where all new ideas had to be documented, reviewed against our objectives, and approved by the faculty lead before being added.
+•	I built a risk register tracking potential issues such as:
+o	Delays in corporate partner responses.
+o	Low student availability during exam weeks.
+o	Unclear deliverables from companies.
+•	For each, I implemented mitigations:
+o	Pre-qualified companies before formal onboarding.
+o	Scheduled project milestones to avoid exam periods.
+o	Created a standard project brief template for all companies to fill out.
+________________________________________
+4. Product Design in Figma
+•	To help companies visualize student solutions, I created a clickable Figma prototype that served as a “digital portfolio” for projects.
+•	This included sections for:
+o	Company challenge description.
+o	Student solution outline.
+o	Visual mock-ups of the proposed digital platform changes.
+•	I worked with a design-minded MBA student to keep it clean and business-friendly, ensuring it was easy for non-technical executives to understand.
+•	This prototype became a centerpiece in stakeholder presentations and helped secure buy-in from 5 additional corporate partners.
+________________________________________
+5. Continuous Coordination & Reporting
+•	Attended three stand-ups each week:
+o	Monday faculty/staff stand-up.
+o	Wednesday student team coordination.
+o	Friday corporate partner readiness check.
+•	Sent a Friday recap email to all stakeholders highlighting achievements, open risks, and next week’s priorities.
+________________________________________
+Result (≈1.5 min)
+•	Successfully launched the SDFN pilot on schedule in month six.
+
+Over a 6-month timeline, I delivered the Smith Digital First Network pilot with 15 corporate partners (50% above target) and 5 graduate student teams, achieving 80% repeat engagement post-pilot. We delivered 100% of milestones on time, stayed 8% under the $30K budget, and reallocated savings to marketing — bringing in 5 additional partners. My risk management plan mitigated 78% of identified risks before impact, and a Figma prototype I designed accelerated corporate approvals by 64%, driving an 83% commitment rate.
+
+•	Engaged 15 corporate leaders and matched 5 graduate student teams to real-world business challenges.
+•	Delivered all activities within scope and came in 8% under budget.
+•	The Figma prototype accelerated company decision-making and increased engagement — 4 out of 5 companies requested ongoing collaboration after the pilot.
+•	Faculty adopted my risk register and budget tracker templates for use in future MBA partnership programs.
+________________________________________
+Reflection (≈0.5 min)
+This experience taught me that program success depends as much on clear communication and risk planning as it does on technical delivery. I also learned the value of asking for help early — my collaboration with finance and MBA peers not only built my budget skills but also created a stronger, more resourceful team. By combining structured program management with hands-on product design, I was able to bridge strategic planning and execution — a skill set I’ve carried into every project since.
+
+
