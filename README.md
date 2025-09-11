@@ -9,14 +9,23 @@ The project not only serves as a **professional representative AI** (answering q
 ## 📂 Repository Structure  
 
 ├── 1_foundations/ # Core concepts & first lab notebooks
+
 ├── 2_openai/ # Experiments with OpenAI function calling
+
 ├── 3_tools/ # Custom tools (lead capture, logging, etc.)
+
 ├── 4_notifications/ # Pushover integration
+
 ├── app.py # Main Gradio app
+
 ├── requirements.txt # Python dependencies
+
 ├── setup/ # Setup instructions for different OS
+
 ├── assets/ # Images & supporting files
+
 ├── guides/ # Notes & learnings from labs
+
 └── README.md # You are here
 
 
